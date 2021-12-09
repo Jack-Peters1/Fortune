@@ -4,9 +4,12 @@ from PIL import ImageTk, Image
 import socket
 
 #network initialization
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-port = 80
+s = socket.socket()
+
+port =
 host_ip =
+s.bind(('', port))
+
 s.connect((host_ip, port))
 
 windowText = """"""

@@ -1,19 +1,25 @@
 from tkinter import *
 from tkinter import scrolledtext
+from PIL import ImageTk, Image
 
 windowText = """"""
 
+name = "Anonymous"
+
 window = Tk()
-window.title("Text Interface")
+window.title("Fortune Client")
+text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=10, font=("Times New Roman", 15))
 
-# Title Label
-Label(window, text="ScrolledText Widget Example", font=("Times New Roman", 15), background='green', foreground="white").grid(column=0,row=0)
+image1 = Image.open("logofortune.jpg")
+test = ImageTk.PhotoImage(image1)
 
-# Creating scrolled text
-# area widget
-text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=40, height=10, font=("Times New Roman", 15))
+label1 = Label(image=test)
+label1.image = test
 
-text_area.grid(column=0, pady=10, padx=10)
+label1.place(x=0, y=0)
+
+
+text_area.grid(column=0, columnspan=14, pady=65, padx=10)
 text_area.configure(state='disabled')
 
 e = Entry(window, width=35, borderwidth=5)
@@ -32,9 +38,9 @@ def button_clear():
 
 def button_enter():
     global windowText
-    windowText = "" + windowText + "\n" + e.get()
+    windowText = "" + windowText + "\n" + name + ": " + e.get()
     text_area.configure(state='normal')
-    text_area.delete("1.0", "end")  # if you want to remove the old data
+    text_area.delete("1.0", "end")
     text_area.insert(END, windowText)
     text_area.configure(state='disabled')
     e.delete(0, END)

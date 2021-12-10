@@ -24,7 +24,7 @@ windowText = """"""
 
 window = Tk()
 window.title("Fortune Client")
-text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=10, font=("Times New Roman", 15))
+text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Times New Roman", 15))
 
 image1 = Image.open("logofortune.jpg")
 test = ImageTk.PhotoImage(image1)
@@ -35,7 +35,7 @@ label1.image = test
 label1.place(x=0, y=0)
 
 
-text_area.grid(column=0, columnspan=14, pady=65, padx=10)
+text_area.grid(row=2, column=0, columnspan=14, pady=63, padx=10)
 text_area.configure(state='disabled')
 
 e = Entry(window, width=35, borderwidth=5)
@@ -44,6 +44,9 @@ e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 e2 = Entry(window, width=20, borderwidth=5)
 e2.place(x=600, y=0)
 e2.insert(END, "Anonymous")
+
+name_text = Label(text="Name:")
+name_text.place(x=550,y=6)
 
 
 def button_click(number):
@@ -94,7 +97,6 @@ def send(msg):
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
 button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
-button_username = Button(window, activebackground="#FFFFFF", bg="#FFFFFF", text="Input Name:", padx=10, pady=6, command=button_username)
 
 def disable_event():
    pass
@@ -103,7 +105,6 @@ window.protocol("WM_DELETE_WINDOW", disable_event)
 # Put the buttons on the screen
 button_disconnect.grid(row=4, column=7, columnspan=2)
 button_enter.grid(row=4, column=5, columnspan=2)
-button_username.place(x=500, y=1)
 
 update_thread()
 window.mainloop()

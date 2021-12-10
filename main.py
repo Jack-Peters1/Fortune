@@ -96,6 +96,10 @@ button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_ent
 button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
 button_username = Button(window, activebackground="#FFFFFF", bg="#FFFFFF", text="Input Name:", padx=10, pady=6, command=button_username)
 
+def disable_event():
+   pass
+window.protocol("WM_DELETE_WINDOW", disable_event)
+
 # Put the buttons on the screen
 button_disconnect.grid(row=4, column=7, columnspan=2)
 button_enter.grid(row=4, column=5, columnspan=2)

@@ -21,8 +21,6 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
 windowText = """"""
-global name
-name = "Anonymous"
 
 window = Tk()
 window.title("Fortune Client")
@@ -45,6 +43,7 @@ e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 
 e2 = Entry(window, width=20, borderwidth=5)
 e2.place(x=600, y=0)
+e2.insert(END, "Anonymous")
 
 
 def button_click(number):
@@ -63,13 +62,14 @@ def update_thread():
     thread.start()
 
 def button_username():
-    name = e2.get()
+    #nothing is actually needed here
+    pass
 
 
 def update():
     while True:
         global windowText
-        windowText = "" + windowText + "\n" + name + ": " + str(client.recv(2048).decode(FORMAT))
+        windowText = "" + windowText + "\n" + str(client.recv(2048).decode(FORMAT))
         text_area.configure(state='normal')
         text_area.delete("1.0", "end")
         text_area.insert(END, windowText)
@@ -78,7 +78,7 @@ def update():
 
 
 def button_enter():
-    send(e.get())
+    send(e2.get() + ": " + e.get())
     text_area.yview_moveto(1)
     e.delete(0, END)
 
@@ -94,12 +94,12 @@ def send(msg):
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
 button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
-button_username = Button(window, text="Set Name:", padx=10, pady=6, command=button_username)
+button_username = Button(window, activebackground="#FFFFFF", bg="#FFFFFF", text="Input Name:", padx=10, pady=6, command=button_username)
 
 # Put the buttons on the screen
 button_disconnect.grid(row=4, column=7, columnspan=2)
 button_enter.grid(row=4, column=5, columnspan=2)
-button_username.place(x=510, y=1)
+button_username.place(x=500, y=1)
 
 update_thread()
 window.mainloop()

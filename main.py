@@ -21,7 +21,7 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
 windowText = """"""
-
+global name
 name = "Anonymous"
 
 window = Tk()
@@ -43,6 +43,9 @@ text_area.configure(state='disabled')
 e = Entry(window, width=35, borderwidth=5)
 e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 
+e2 = Entry(window, width=20, borderwidth=5)
+e2.place(x=600, y=0)
+
 
 def button_click(number):
     current = e.get()
@@ -58,6 +61,9 @@ def button_disconnect():
 def update_thread():
     thread = threading.Thread(target=update)
     thread.start()
+
+def button_username():
+    name = e2.get()
 
 
 def update():
@@ -88,10 +94,12 @@ def send(msg):
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
 button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
+button_username = Button(window, text="Set Name:", padx=10, pady=6, command=button_username)
 
 # Put the buttons on the screen
 button_disconnect.grid(row=4, column=7, columnspan=2)
 button_enter.grid(row=4, column=5, columnspan=2)
+button_username.place(x=510, y=1)
 
 update_thread()
 window.mainloop()

@@ -3,6 +3,7 @@ from tkinter import scrolledtext
 from PIL import ImageTk, Image
 import socket
 import threading
+import sys
 
 #network initialize
 
@@ -49,9 +50,9 @@ def button_click(number):
     e.insert(0, str(current) + str(number))
 
 
-def button_clear():
-    update_thread()
-    e.delete(0, END)
+def button_disconnect():
+    send(DISCONNECT_MESSAGE)
+    sys.exit()
 
 
 def update_thread():
@@ -86,11 +87,11 @@ def send(msg):
 
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
-button_clear = Button(window, text="Clear", padx=79, pady=20, command=button_clear)
+button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
 
 # Put the buttons on the screen
-button_clear.grid(row=4, column=5, columnspan=2)
-button_enter.grid(row=4, column=7, columnspan=2)
+button_disconnect.grid(row=4, column=7, columnspan=2)
+button_enter.grid(row=4, column=5, columnspan=2)
 
 update_thread()
 window.mainloop()

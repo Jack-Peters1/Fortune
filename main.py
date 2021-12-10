@@ -2,8 +2,27 @@ from tkinter import *
 from tkinter import scrolledtext
 from PIL import ImageTk, Image
 import socket
+import threading
 
-#network initializati
+#network initialize
+
+"""
+
+https://stackoverflow.com/questions/43941507/constantly-update-data-from-a-server-and-print-to-a-text-box FOR LATER FIX PROBLEM WITH CRASHING AOWAH
+
+"""
+
+HEADER = 64
+PORT = 5050
+FORMAT = 'utf-8'
+DISCONNECT_MESSAGE = "!DISCONNECT"
+SERVER = socket.gethostbyname(socket.gethostname())
+ADDR = (SERVER, PORT)
+
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+client.connect(ADDR)
 
 windowText = """"""
 
@@ -36,18 +55,39 @@ def button_click(number):
 
 
 def button_clear():
+    update_thread()
     e.delete(0, END)
+
+
+def update_thread():
+    thread = threading.Thread(target=update)
+    thread.start()
+
+
+def update():
+    while True:
+        global windowText
+        windowText = "" + windowText + "\n" + name + ": " + str(client.recv(2048).decode(FORMAT))
+        text_area.configure(state='normal')
+        text_area.delete("1.0", "end")
+        text_area.insert(END, windowText)
+        text_area.configure(state='disabled')
 
 
 def button_enter():
-    global windowText
-    windowText = "" + windowText + "\n" + name + ": " + e.get()
-    text_area.configure(state='normal')
-    text_area.delete("1.0", "end")
-    text_area.insert(END, windowText)
-    text_area.configure(state='disabled')
+    send(e.get())
     text_area.yview_moveto(1)
     e.delete(0, END)
+
+
+def send(msg):
+    message = msg.encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (HEADER - len(send_length))
+    client.send(send_length)
+    client.send(message)
+
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
 button_clear = Button(window, text="Clear", padx=79, pady=20, command=button_clear)
@@ -56,4 +96,6 @@ button_clear = Button(window, text="Clear", padx=79, pady=20, command=button_cle
 button_clear.grid(row=4, column=5, columnspan=2)
 button_enter.grid(row=4, column=7, columnspan=2)
 
+update_thread()
 window.mainloop()
+

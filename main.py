@@ -46,6 +46,7 @@ def button_enter():
     text_area.delete("1.0", "end")
     text_area.insert(END, windowText)
     text_area.configure(state='disabled')
+    text_area.yview_moveto(1)
     e.delete(0, END)
 
 button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)

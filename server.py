@@ -29,10 +29,8 @@ def handle_client(conn, addr):
 
             with clients_lock:
                 for client in clients:
-                    if msg is not DISCONNECT_MESSAGE:
+                    if str(msg) is not DISCONNECT_MESSAGE:
                         client.sendall(msg.encode(FORMAT))
-                    else:
-                        client.sendall((str(addr) + "has disconnected.").encode(FORMAT))
 
             if msg == DISCONNECT_MESSAGE:
                 connected = False

@@ -6,11 +6,6 @@ import threading
 
 #network initialize
 
-"""
-
-https://stackoverflow.com/questions/43941507/constantly-update-data-from-a-server-and-print-to-a-text-box FOR LATER FIX PROBLEM WITH CRASHING AOWAH
-
-"""
 
 HEADER = 64
 PORT = 5050

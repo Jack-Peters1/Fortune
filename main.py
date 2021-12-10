@@ -3,14 +3,7 @@ from tkinter import scrolledtext
 from PIL import ImageTk, Image
 import socket
 
-#network initialization
-s = socket.socket()
-
-port =
-host_ip =
-s.bind(('', port))
-
-s.connect((host_ip, port))
+#network initializati
 
 windowText = """"""
 

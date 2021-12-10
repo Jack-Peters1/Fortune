@@ -27,9 +27,8 @@ def handle_client(conn, addr):
             msg_length = int(msg_length)
             msg = conn.recv(msg_length).decode(FORMAT)
             print(str(addr) + " " + str(msg))
-            with clients_lock:
-                for client in clients:
-                    client.sendall(msg.encode(FORMAT))
+
+            broadcast(msg)
 
             if msg == DISCONNECT_MESSAGE:
                 connected = False
@@ -41,12 +40,21 @@ def handle_client(conn, addr):
 
 def start():
     server.listen()
-    print("Server is listening on " + SERVER)
+    print("Server is listening")
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
         print("Active connections: " + str(threading.active_count() - 1))
+
+def broadcast(msg):
+    message = msg.encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (HEADER - len(send_length))
+    with clients_lock:
+        for client in clients:
+            client.sendall(msg.encode(FORMAT))
 
 
 

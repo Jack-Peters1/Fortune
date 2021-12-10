@@ -67,6 +67,7 @@ def update():
         text_area.delete("1.0", "end")
         text_area.insert(END, windowText)
         text_area.configure(state='disabled')
+        text_area.yview_moveto(1)
 
 
 def button_enter():

@@ -61,12 +61,6 @@ name_text['background']='#a0a0a0'
 name_text.place(x=860, y=20)
 
 
-def button_click(number):
-    current = e.get()
-    e.delete(0, END)
-    e.insert(0, str(current) + str(number))
-
-
 def button_disconnect():
     send(DISCONNECT_MESSAGE)
     sys.exit()
@@ -75,10 +69,6 @@ def button_disconnect():
 def update_thread():
     thread = threading.Thread(target=update)
     thread.start()
-
-def button_username():
-    #nothing is actually needed here
-    pass
 
 
 def update():
@@ -93,9 +83,10 @@ def update():
 
 
 def button_enter():
-    send(e2.get() + ": " + e.get())
-    text_area.yview_moveto(1)
-    e.delete(0, END)
+    if len(e.get()) > 0:
+        send(e2.get() + ": " + e.get())
+        text_area.yview_moveto(1)
+        e.delete(0, END)
 
 
 def send(msg):

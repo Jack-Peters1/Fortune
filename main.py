@@ -23,30 +23,42 @@ client.connect(ADDR)
 windowText = """"""
 
 window = Tk()
+window['background']='#00807F'
 window.title("Fortune Client")
-text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Times New Roman", 15))
+text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Consolas", 15))
 
-image1 = Image.open("logofortune.jpg")
+image1 = Image.open("logofortune.png")
 test = ImageTk.PhotoImage(image1)
 
 label1 = Label(image=test)
 label1.image = test
-
+label1['background']='#00807F'
 label1.place(x=0, y=0)
 
 
-text_area.grid(row=2, column=0, columnspan=14, pady=63, padx=10)
+text_area.grid(row=2, column=0, columnspan=14, pady=69, padx=10)
 text_area.configure(state='disabled')
 
-e = Entry(window, width=100, borderwidth=5)
+e = Entry(window, width=75, borderwidth=5, font=('Consolas', 12))
 e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 
-e2 = Entry(window, width=20, borderwidth=5)
-e2.place(x=600, y=6)
+canvas = Canvas(
+    window,
+    height=67,
+    width=250,
+    bg='#a0a0a0'
+)
+
+canvas.place(x=858, y=0)
+
+
+e2 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
+e2.place(x=915, y=20)
 e2.insert(END, "Anonymous")
 
-name_text = Label(text="Name:")
-name_text.place(x=550,y=6)
+name_text = Label(text="Name:", font=('Consolas', 14))
+name_text['background']='#a0a0a0'
+name_text.place(x=860, y=20)
 
 
 def button_click(number):
@@ -95,8 +107,8 @@ def send(msg):
     client.send(message)
 
 
-button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter)
-button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect)
+button_enter = Button(window, text="Enter", padx=91, pady=20, command=button_enter, font=('Consolas', 14))
+button_disconnect = Button(window, text="Disconnect", padx=79, pady=20, command=button_disconnect, font=('Consolas', 14))
 
 def disable_event():
    pass

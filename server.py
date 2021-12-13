@@ -3,7 +3,8 @@ import threading
 
 HEADER = 64
 PORT = 5050
-SERVER = ""
+#SERVER = ""
+SERVER = "192.168.56.1"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -19,6 +20,10 @@ def handle_client(conn, addr):
     with clients_lock:
         clients.add(conn)
 
+    with clients_lock:
+        for client in clients:
+            client.sendall(("A new client has connected. Active connections: " + str(threading.active_count() - 1)).encode(FORMAT))
+
     connected = True
     while connected:
         msg_length = conn.recv(HEADER).decode(FORMAT)
@@ -29,8 +34,10 @@ def handle_client(conn, addr):
 
             with clients_lock:
                 for client in clients:
-                    if str(msg) is not DISCONNECT_MESSAGE:
+                    if msg != DISCONNECT_MESSAGE:
                         client.sendall(msg.encode(FORMAT))
+                    else:
+                        client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))
 
             if msg == DISCONNECT_MESSAGE:
                 connected = False

@@ -44,20 +44,11 @@ e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 canvas = Canvas(
     window,
     height=67,
-    width=250,
+    width=550,
     bg='#a0a0a0'
 )
 
-canvas.place(x=858, y=0)
-
-canvas2 = Canvas(
-    window,
-    height=67,
-    width=250,
-    bg='#a0a0a0'
-)
-
-canvas2.place(x=620, y=0)
+canvas.place(x=565, y=0)
 
 e2 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
 e2.place(x=915, y=20)
@@ -73,7 +64,7 @@ e3.insert(END, "")
 
 target_text = Label(text="Target:", font=('Consolas', 14))
 target_text['background']='#a0a0a0'
-target_text.place(x=600, y=23)
+target_text.place(x=570, y=23)
 
 
 def button_disconnect():

@@ -3,7 +3,8 @@ import threading
 
 HEADER = 64
 PORT = 5050
-SERVER = ""
+#SERVER = ""
+SERVER = "10.1.132.248"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -25,6 +26,8 @@ def handle_client(conn, addr):
 
     connected = True
     while connected:
+        target = conn.recv(HEADER).decode(FORMAT)
+        print(target)
         msg_length = conn.recv(HEADER).decode(FORMAT)
         if msg_length:
             msg_length = int(msg_length)

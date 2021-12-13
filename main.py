@@ -10,13 +10,14 @@ HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-SERVER = "fortunechat.ddns.net"
+#SERVER = "fortunechat.ddns.net"
+SERVER = "10.1.132.248"
 ADDR = (SERVER, PORT)
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#client.connect(ADDR)
+client.connect(ADDR)
 
 windowText = """"""
 
@@ -101,6 +102,12 @@ def send(msg):
     msg_length = len(message)
     send_length = str(msg_length).encode(FORMAT)
     send_length += b' ' * (HEADER - len(send_length))
+    if len(str(e3.get())) > 0:
+        target = str(e3.get()).encode(FORMAT)
+    else:
+        target = "null".encode(FORMAT)
+    target += b' ' * (HEADER - len(send_length))
+    client.send(target)
     client.send(send_length)
     client.send(message)
 

@@ -4,16 +4,13 @@ from PIL import ImageTk, Image
 import socket
 import threading
 import sys
-
-#network initialize
-
+from datetime import datetime
 
 HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-#SERVER = "fortunechat.ddns.net"
-SERVER = "192.168.56.1"
+SERVER = "fortunechat.ddns.net"
 ADDR = (SERVER, PORT)
 
 
@@ -24,17 +21,18 @@ client.connect(ADDR)
 windowText = """"""
 
 window = Tk()
-window['background']='#00807F'
+window['background']='#E0FFE9'
 window.title("Fortune Client")
-text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Consolas", 15))
+text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#A2F3BB")
 
 image1 = Image.open("logofortune.png")
 test = ImageTk.PhotoImage(image1)
 
 label1 = Label(image=test)
 label1.image = test
-label1['background']='#00807F'
+label1['background']='#E0FFE9'
 label1.place(x=0, y=0)
+
 
 
 text_area.grid(row=2, column=0, columnspan=14, pady=69, padx=10)
@@ -59,7 +57,7 @@ e2.insert(END, "Anonymous")
 
 name_text = Label(text="Name:", font=('Consolas', 14))
 name_text['background']='#a0a0a0'
-name_text.place(x=860, y=20)
+name_text.place(x=861, y=23)
 
 
 def button_disconnect():
@@ -82,10 +80,12 @@ def update():
         text_area.configure(state='disabled')
         text_area.yview_moveto(1)
 
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
 
 def button_enter():
     if len(e.get()) > 0:
-        send(e2.get() + ": " + e.get())
+        send(e2.get() + " " + current_time + ": " + e.get())
         text_area.yview_moveto(1)
         e.delete(0, END)
 

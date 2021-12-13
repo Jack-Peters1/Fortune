@@ -16,7 +16,7 @@ ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-client.connect(ADDR)
+#client.connect(ADDR)
 
 windowText = """"""
 
@@ -50,6 +50,14 @@ canvas = Canvas(
 
 canvas.place(x=858, y=0)
 
+canvas2 = Canvas(
+    window,
+    height=67,
+    width=250,
+    bg='#a0a0a0'
+)
+
+canvas2.place(x=620, y=0)
 
 e2 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
 e2.place(x=915, y=20)
@@ -58,6 +66,14 @@ e2.insert(END, "Anonymous")
 name_text = Label(text="Name:", font=('Consolas', 14))
 name_text['background']='#a0a0a0'
 name_text.place(x=861, y=23)
+
+e3 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
+e3.place(x=650, y=20)
+e3.insert(END, "")
+
+target_text = Label(text="Target:", font=('Consolas', 14))
+target_text['background']='#a0a0a0'
+target_text.place(x=600, y=23)
 
 
 def button_disconnect():

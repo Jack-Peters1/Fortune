@@ -89,7 +89,6 @@ def button_enter():
         text_area.yview_moveto(1)
         e.delete(0, END)
 
-
 def send(msg):
     message = msg.encode(FORMAT)
     msg_length = len(message)

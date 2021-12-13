@@ -45,7 +45,19 @@ def handle_client(conn, addr):
                     clients.remove(conn)
 
     conn.close()
-
+    
+"""
+def privateSend(msg)
+    message = msg.encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' ' * (HEADER - len(send_length))
+    client.send(send_length)
+    client.send(message)
+    
+    handle_client(conn, addr):
+    print("New connection. " + str(addr) + " connected.")
+"""
 
 def start():
     server.listen()

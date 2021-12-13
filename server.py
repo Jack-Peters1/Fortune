@@ -4,7 +4,7 @@ import threading
 HEADER = 64
 PORT = 5050
 #SERVER = ""
-SERVER = "10.1.132.248"
+SERVER = "192.168.1.157"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -37,6 +37,8 @@ def handle_client(conn, addr):
             with clients_lock:
                 for client in clients:
                     if msg != DISCONNECT_MESSAGE:
+                        if client.getpeername()[0] == target:
+                            print("Client to PM Found")
                         client.sendall(msg.encode(FORMAT))
                     else:
                         client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))

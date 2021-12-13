@@ -3,8 +3,8 @@ import threading
 
 HEADER = 64
 PORT = 5050
-#SERVER = ""
-SERVER = "10.1.132.248"
+# SERVER = ""
+SERVER = ""
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -15,6 +15,7 @@ server.bind(ADDR)
 clients = set()
 clients_lock = threading.Lock()
 
+
 def handle_client(conn, addr):
     print("New connection. " + str(addr) + " connected.")
     with clients_lock:
@@ -22,7 +23,8 @@ def handle_client(conn, addr):
 
     with clients_lock:
         for client in clients:
-            client.sendall(("A new client has connected. Active connections: " + str(threading.active_count() - 1)).encode(FORMAT))
+            client.sendall(
+                ("A new client has connected. Active connections: " + str(threading.active_count() - 1)).encode(FORMAT))
 
     connected = True
     while connected:
@@ -37,9 +39,14 @@ def handle_client(conn, addr):
             with clients_lock:
                 for client in clients:
                     if msg != DISCONNECT_MESSAGE:
-                        client.sendall(msg.encode(FORMAT))
+                        if target == "null":
+                            client.sendall(msg.encode(FORMAT))
+                        elif client.getpeername()[0] == target:
+                            print("Client to PM Found")
+                            client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))
                     else:
-                        client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))
+                        client.sendall(("A user has disconnected. Active connections: " + str(
+                            threading.active_count() - 2)).encode(FORMAT))
 
             if msg == DISCONNECT_MESSAGE:
                 connected = False
@@ -47,7 +54,8 @@ def handle_client(conn, addr):
                     clients.remove(conn)
 
     conn.close()
-    
+
+
 """
 def privateSend(msg)
     message = msg.encode(FORMAT)
@@ -56,10 +64,11 @@ def privateSend(msg)
     send_length += b' ' * (HEADER - len(send_length))
     client.send(send_length)
     client.send(message)
-    
+
     handle_client(conn, addr):
     print("New connection. " + str(addr) + " connected.")
 """
+
 
 def start():
     server.listen()

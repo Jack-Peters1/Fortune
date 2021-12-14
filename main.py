@@ -15,7 +15,7 @@ ADDR = (SERVER, PORT)
 
 #set up connection with server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#client.connect(ADDR)
+client.connect(ADDR)
 
 windowText = """"""
 #initialize main window

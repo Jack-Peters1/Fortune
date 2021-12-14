@@ -23,7 +23,7 @@ windowText = """"""
 window = Tk()
 window['background']='#FFE3D7'
 window.title("Fortune Client")
-text_area = scrolledtext.ScrolledText(window , wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#FECEB9", fg="#962121")
+text_area = scrolledtext.ScrolledText(window , wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#FECEB9")
 
 window.iconbitmap("fortunecookie.ico")
 
@@ -70,6 +70,7 @@ target_text.place(x=570, y=23)
 
 #creating text tags
 text_area.tag_config('greentext', foreground='#A3D973')
+text_area.tag_config('redtext', foreground="#962121")
 
 #function to disconnect from server
 def button_disconnect():
@@ -85,19 +86,16 @@ def update_thread():
 def update():
     while True:
         global windowText
-        newLine = str(client.recv(2048).decode(FORMAT)) #get message from server
-        windowText = "" + windowText + "\n" + newLine
-        print(str(newLine[newLine.find(": ") + 2]))
+        newLine = str(client.recv(2048).decode(FORMAT)) + "\n" #get message from server
+
         if str(newLine[newLine.find(": ") + 2]) == ">":
             text_area.configure(state='normal')
-            text_area.delete("1.0", "end")
-            text_area.insert(END, windowText, "greentext")
+            text_area.insert(END, newLine, "greentext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
         else:
             text_area.configure(state='normal')
-            text_area.delete("1.0", "end")
-            text_area.insert(END, windowText)
+            text_area.insert(END, newLine, "redtext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
 # get date and time for message logs

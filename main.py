@@ -95,11 +95,11 @@ def update():
             text_area.insert(END, newLine, "redtext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
-# get date and time for message logs
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
 
 def button_enter(): #send message to server
+    # get date and time for message logs
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
     if len(e.get()) > 0:
         send(e2.get() + " " + current_time + ": " + e.get()) #call send method with name, time , and message
         text_area.yview_moveto(1)

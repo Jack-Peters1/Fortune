@@ -10,8 +10,7 @@ HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-#SERVER = "fortunechat.ddns.net"
-SERVER = "192.168.1.157"
+SERVER = "fortunechat.ddns.net"
 ADDR = (SERVER, PORT)
 
 

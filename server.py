@@ -39,6 +39,8 @@ def handle_client(conn, addr):
                     if msg != DISCONNECT_MESSAGE:
                         if target == "null":
                             client.sendall(msg.encode(FORMAT))
+                        elif client.getpeername()[0] == addr:
+                            client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))
                         elif client.getpeername()[0] == target:
                             print("Client to PM Found")
                             client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))

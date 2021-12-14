@@ -16,21 +16,21 @@ ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-client.connect(ADDR)
+#client.connect(ADDR)
 
 windowText = """"""
 
 window = Tk()
-window['background']='#E0FFE9'
+window['background']='#FFE3D7'
 window.title("Fortune Client")
-text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#A2F3BB")
+text_area = scrolledtext.ScrolledText(window, wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#FECEB9", fg="#962121")
 
 image1 = Image.open("logofortune.png")
 test = ImageTk.PhotoImage(image1)
 
 label1 = Label(image=test)
 label1.image = test
-label1['background']='#E0FFE9'
+label1['background']='#FFE3D7'
 label1.place(x=0, y=0)
 
 
@@ -45,7 +45,7 @@ canvas = Canvas(
     window,
     height=67,
     width=550,
-    bg='#a0a0a0'
+    bg='#FECEB9'
 )
 
 canvas.place(x=565, y=0)
@@ -55,7 +55,7 @@ e2.place(x=915, y=20)
 e2.insert(END, "Anonymous")
 
 name_text = Label(text="Name:", font=('Consolas', 14))
-name_text['background']='#a0a0a0'
+name_text['background']='#FECEB9'
 name_text.place(x=861, y=23)
 
 e3 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
@@ -63,7 +63,7 @@ e3.place(x=650, y=20)
 e3.insert(END, "")
 
 target_text = Label(text="Target:", font=('Consolas', 14))
-target_text['background']='#a0a0a0'
+target_text['background']='#FECEB9'
 target_text.place(x=570, y=23)
 
 

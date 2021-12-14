@@ -14,6 +14,7 @@ server.bind(ADDR)
 clients = set()
 clients_lock = threading.Lock()
 
+
 def handle_client(conn, addr):
     print("New connection. " + str(addr) + " connected.")
     with clients_lock:
@@ -36,9 +37,11 @@ def handle_client(conn, addr):
             with clients_lock:
                 for client in clients:
                     if msg != DISCONNECT_MESSAGE:
-                        if client.getpeername()[0] == target:
+                        if target == "null":
+                            client.sendall(msg.encode(FORMAT))
+                        elif client.getpeername()[0] == target:
                             print("Client to PM Found")
-                        client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))
+                            client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))
                     else:
                         client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))
 
@@ -48,19 +51,7 @@ def handle_client(conn, addr):
                     clients.remove(conn)
 
     conn.close()
-    
-"""
-def privateSend(msg)
-    message = msg.encode(FORMAT)
-    msg_length = len(message)
-    send_length = str(msg_length).encode(FORMAT)
-    send_length += b' ' * (HEADER - len(send_length))
-    client.send(send_length)
-    client.send(message)
-    
-    handle_client(conn, addr):
-    print("New connection. " + str(addr) + " connected.")
-"""
+
 
 def start():
     server.listen()

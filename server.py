@@ -39,7 +39,7 @@ def handle_client(conn, addr):
                     if msg != DISCONNECT_MESSAGE:
                         if client.getpeername()[0] == target:
                             print("Client to PM Found")
-                        client.sendall(msg.encode(FORMAT))
+                        client.send(str(msg + " [PRIVATE MESSAGE]").encode(FORMAT))
                     else:
                         client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))
 

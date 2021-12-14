@@ -55,7 +55,7 @@ e2.insert(END, "Anonymous")
 # create name area
 name_text = Label(text="Name:", font=('Consolas', 14))
 name_text['background'] = '#FECEB9'
-name_text.place(x=861, y=23)
+name_text.place(x=855, y=23)
 # create target entry
 e3 = Entry(window, width=20, borderwidth=5, font=('Consolas', 12))
 e3.place(x=650, y=20)

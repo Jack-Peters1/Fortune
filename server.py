@@ -3,7 +3,8 @@ import threading
 
 HEADER = 64
 PORT = 5050
-SERVER = ""
+#SERVER = ""
+SERVER = "10.1.136.87"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"

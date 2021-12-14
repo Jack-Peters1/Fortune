@@ -10,12 +10,13 @@ HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-SERVER = "fortunechat.ddns.net"
+#SERVER = "fortunechat.ddns.net"
+SERVER = "10.1.136.87"
 ADDR = (SERVER, PORT)
 
 #set up connection with server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#client.connect(ADDR)
+client.connect(ADDR)
 
 windowText = """"""
 #initialize main window
@@ -84,8 +85,10 @@ def update_thread():
 def update():
     while True:
         global windowText
-        windowText = "" + windowText + "\n" + str(client.recv(2048).decode(FORMAT)) #get message from server
-        if windowText.find(":") + 2  == ">":
+        newLine = str(client.recv(2048).decode(FORMAT)) #get message from server
+        windowText = "" + windowText + "\n" + newLine
+        print(str(newLine[newLine.find(": ") + 2]))
+        if str(newLine[newLine.find(": ") + 2]) == ">":
             text_area.configure(state='normal')
             text_area.delete("1.0", "end")
             text_area.insert(END, windowText, "greentext")

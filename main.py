@@ -42,7 +42,7 @@ e.grid(row=4, column=0, columnspan=3, padx=10, pady=10)
 # create background for inputs on top
 canvas = Canvas(
     window,
-    height=67,
+    height=65,
     width=550,
     bg='#FECEB9',
 )
@@ -84,16 +84,23 @@ def update_thread():
 # update the clients text area with other clients messages from server
 def update():
     while True:
-        newLine = str(client.recv(2048).decode(FORMAT)) + "\n"  # get message from server
+        newLine = str(client.recv(2048).decode(FORMAT))  # get message from server
+
+        a, b = newLine.split(': ', 1)
+        a = a + ": "
+        b = b + "\n"
+        text_area.configure(state='normal')
+        text_area.insert(END, a, "redtext")
+        text_area.configure(state='disabled')
 
         if str(newLine[newLine.find(": ") + 2]) == ">":
             text_area.configure(state='normal')
-            text_area.insert(END, newLine, "greentext")
+            text_area.insert(END, b, "greentext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
         else:
             text_area.configure(state='normal')
-            text_area.insert(END, newLine, "redtext")
+            text_area.insert(END, b, "redtext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
 

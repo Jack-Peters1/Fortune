@@ -15,7 +15,7 @@ ADDR = (SERVER, PORT)
 
 #set up connection with server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADDR)
+#client.connect(ADDR)
 
 windowText = """"""
 #initialize main window
@@ -23,6 +23,8 @@ window = Tk()
 window['background']='#FFE3D7'
 window.title("Fortune Client")
 text_area = scrolledtext.ScrolledText(window , wrap=WORD, width=95, height=20, font=("Consolas", 15), bg="#FECEB9", fg="#962121")
+
+window.iconbitmap("fortunecookie.ico")
 
 image1 = Image.open("logofortune.png")
 test = ImageTk.PhotoImage(image1)

@@ -5,6 +5,8 @@ import socket
 import threading
 import sys
 from datetime import datetime
+from playsound import playsound
+
 
 HEADER = 64
 PORT = 5050
@@ -95,6 +97,7 @@ def update():
             text_area.insert(END, newLine, "redtext")
             text_area.configure(state='disabled')
             text_area.yview_moveto(1)
+        playsound('message_sound.mp3')
 # get date and time for message logs
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")

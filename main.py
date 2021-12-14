@@ -17,7 +17,6 @@ ADDR = (SERVER, PORT)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
-windowText = """"""
 #initialize main window
 window = Tk()
 window['background']='#FFE3D7'
@@ -68,7 +67,7 @@ target_text['background']='#FECEB9'
 target_text.place(x=570, y=23)
 
 #creating text tags
-text_area.tag_config('greentext', foreground='#A3D973')
+text_area.tag_config('greentext', foreground='#77A44F')
 text_area.tag_config('redtext', foreground="#962121")
 
 #function to disconnect from server
@@ -84,7 +83,6 @@ def update_thread():
 #update the clients text area with other clients messages from server
 def update():
     while True:
-        global windowText
         newLine = str(client.recv(2048).decode(FORMAT)) + "\n" #get message from server
 
         if str(newLine[newLine.find(": ") + 2]) == ">":

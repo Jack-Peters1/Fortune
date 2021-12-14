@@ -15,7 +15,7 @@ ADDR = (SERVER, PORT)
 
 #set up connection with server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADDR)
+#client.connect(ADDR)
 
 windowText = """"""
 #initialize main window
@@ -67,6 +67,9 @@ target_text = Label(text="Target:", font=('Consolas', 14))
 target_text['background']='#FECEB9'
 target_text.place(x=570, y=23)
 
+#creating text tags
+text_area.tag_config('greentext', foreground='#A3D973')
+
 #function to disconnect from server
 def button_disconnect():
     send(DISCONNECT_MESSAGE)
@@ -82,11 +85,18 @@ def update():
     while True:
         global windowText
         windowText = "" + windowText + "\n" + str(client.recv(2048).decode(FORMAT)) #get message from server
-        text_area.configure(state='normal')
-        text_area.delete("1.0", "end")
-        text_area.insert(END, windowText)
-        text_area.configure(state='disabled')
-        text_area.yview_moveto(1)
+        if windowText.find(":") + 2  == ">":
+            text_area.configure(state='normal')
+            text_area.delete("1.0", "end")
+            text_area.insert(END, windowText, "greentext")
+            text_area.configure(state='disabled')
+            text_area.yview_moveto(1)
+        else:
+            text_area.configure(state='normal')
+            text_area.delete("1.0", "end")
+            text_area.insert(END, windowText)
+            text_area.configure(state='disabled')
+            text_area.yview_moveto(1)
 # get date and time for message logs
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")

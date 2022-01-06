@@ -3,7 +3,7 @@ import threading
 
 HEADER = 64
 PORT = 5050
-SERVER = ""
+SERVER = "0"
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
@@ -45,12 +45,12 @@ def handle_client(conn, addr):
                 for client in clients:
                     if msg != DISCONNECT_MESSAGE:  # If the client is not trying to disconnect...
                         if target == "null":  # If there is no specific target for the message, broadcast to all clients.
-                            client.sendall(str("ID: " + str(client_ids.index(conn.getpeername()[0])) + " " +msg).encode(FORMAT))
+                            client.sendall(str("ID " + str(client_ids.index(conn.getpeername()[0])) + " " +msg).encode(FORMAT))
                         elif client.getpeername()[0] == addr[0]:  # Otherwise, Send the PM back to the sender so that it shows up in the chatbox.
-                            client.send(str("ID: " + str(client_ids.index(conn.getpeername()[0])) + " " +msg + " [PRIVATE MESSAGE]").encode(FORMAT))
-                        if client_ids.index(conn.getpeername()[0]) == target:  # And also Send the PM to the target and only to the target.
+                            client.send(str("ID " + str(client_ids.index(conn.getpeername()[0])) + " " +msg + " [PRIVATE MESSAGE]").encode(FORMAT))
+                        if str(client_ids.index(conn.getpeername()[0])) == str(target):  # And also Send the PM to the target and only to the target.
                             print("Client to PM Found")
-                            client.send(str("ID: " + str(client_ids.index(conn.getpeername()[0])) + " " +msg + " [PRIVATE MESSAGE]").encode(FORMAT))
+                            client.send(str("ID " + str(client_ids.index(conn.getpeername()[0])) + " " +msg + " [PRIVATE MESSAGE]").encode(FORMAT))
                     else:  # If the client is trying to disconnect and the disconnect message has been recieved by the server, notify all clients still connected that a disconnect has occurred.
                         client.sendall(("A user has disconnected. Active connections: " + str(threading.active_count() - 2)).encode(FORMAT))
 
